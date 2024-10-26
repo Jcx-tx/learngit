@@ -1,0 +1,59 @@
+#rectangle.py
+class Rectangle:
+    def __init__(self, width, height):
+        if width < 0 or height < 0:
+            raise ValueError("width 或 height 出现异常")
+        self.width = width
+        self.height = height
+
+    def calculate_area(self):
+        return self.width * self.height
+
+
+
+#unittest_calculate.py
+import unittest
+from rectangle import Rectangle
+
+
+class TestRectangle(unittest.TestCase):
+    def test_01(self):
+        rect = Rectangle(4, 5)
+        self.assertEqual(rect.calculate_area(),20)
+    def test_02(self):
+        rect = Rectangle(0, 5)
+        self.assertEqual(rect.calculate_area(),0)
+    def test_03(self):
+        rect = Rectangle(4, 0)
+        self.assertEqual( rect.calculate_area(),0)
+    def test_04(self):
+        with self.assertRaises(ValueError):
+            Rectangle(-4, 5)
+    def test_05(self):
+        with self.assertRaises(ValueError):
+            Rectangle(4, -5)
+    def test_06(self):
+        with self.assertRaises(ValueError):
+            Rectangle(-4, -5)
+
+
+if __name__ == '__main__':
+    unittest.main()
+
+
+
+
+#unittest_report
+import unittest
+from unittest_calculate import TestRectangle
+from BeautifulReport import BeautifulReport
+
+load_case = unittest.TestLoader().loadTestsFromTestCase(TestRectangle)
+
+suite = unittest.TestSuite()
+
+suite.addTest(load_case)
+
+
+
+BeautifulReport(load_case).report(filename='面积计算测试报告', description='面积数据', report_dir='.')
