@@ -57,3 +57,5 @@ suite.addTest(load_case)
 
 
 BeautifulReport(load_case).report(filename='面积计算测试报告', description='面积数据', report_dir='.')
+
+需要安装BeautifulReport库
